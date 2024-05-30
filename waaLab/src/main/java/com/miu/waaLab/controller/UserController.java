@@ -7,10 +7,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.miu.waaLab.entity.UserEntity;
 import com.miu.waaLab.entity.dto.request.UserRequestDto;
 import com.miu.waaLab.entity.dto.response.PostResponseDto;
 import com.miu.waaLab.entity.dto.response.UserResponseDto;
@@ -38,7 +40,8 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void save(UserRequestDto u){
+    public void save(@RequestBody UserEntity u){
+        System.out.println(u);
         userService.save(u);
     }
 

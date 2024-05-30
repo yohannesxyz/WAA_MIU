@@ -27,4 +27,9 @@ public class UserEntity {
     @OneToMany
     @JoinColumn(name="id_user")
     List<Post> posts;
+
+    
+    public void setPosts(List<Post> posts){
+    this.posts=posts;
+    }
 }

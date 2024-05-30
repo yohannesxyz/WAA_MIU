@@ -12,6 +12,7 @@ import com.miu.waaLab.entity.UserEntity;
 import com.miu.waaLab.entity.dto.request.UserRequestDto;
 import com.miu.waaLab.entity.dto.response.PostResponseDto;
 import com.miu.waaLab.entity.dto.response.UserResponseDto;
+import com.miu.waaLab.repository.PostRepository;
 import com.miu.waaLab.repository.UserRepository;
 import com.miu.waaLab.service.UserService;
 
@@ -20,7 +21,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
-
+@Autowired
+private PostRepository postRepository;
     @Autowired
     private ModelMapper modelmapper;
 
@@ -40,8 +42,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void save(UserRequestDto u) {
-        userRepository.save(modelmapper.map(u, UserEntity.class));
+    public void save(UserEntity u) {
+        userRepository.save(u);
+        postRepository.saveAll(u.getPosts());
     }
 
     @Override

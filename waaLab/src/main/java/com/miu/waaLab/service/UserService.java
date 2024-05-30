@@ -9,6 +9,6 @@ public interface UserService {
 
     public List<UserResponseDto> findAll();
     public UserResponseDto findById(int id);
-    public void save(UserRequestDto u);
+    public void save(UserEntity u);
     public List<PostResponseDto> findUserPosts(int userId);
 }

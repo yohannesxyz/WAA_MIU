@@ -1,0 +1,32 @@
+##########Day 1#################
+
+Q1
+
+what is the benefit of following RESTful constraints specifically interface?
+
+The benefit of following the restful constraint of a uniform interface is that it simplifies architechture and enhances interoperability, making APIs easier to understand and integrate across different platforms.
+
+Q2
+
+is the a good practice when designing Restful services and why?
+
+localhost:8080/api/v1/products/add-product
+
+note: this endpoint will be used to add a new product.
+
+
+:- no because we dont have to use verbs on the api we just have to manipulate it in the controller,
+
+
+########Day 2#######
+
+1. What is required from ORM to make two tables with a bi-directional one-to-many relationship produce a joined column relation.
+we need to say @onetomany in the parent entity above the attribute that links both and in the child you write @manytoone and give it a variable from the parent and you should be good to go.
+
+2. Why is ORM worth implementing? List 2 reasons with a brief explanation.
+● Business code access objects rather than DB tables.
+● Hides details of SQL queries from OO logic.
+● Based on JDBC 'under the hood.'
+● No need to deal with the database implementation.
+● Entities based on business concepts rather than database
+structure.

@@ -6,4 +6,6 @@ import com.miu.waaLab.entity.UserEntity;
 
 public interface UserRepository extends JpaRepository<UserEntity,Integer>{
 
+
+    
 }
