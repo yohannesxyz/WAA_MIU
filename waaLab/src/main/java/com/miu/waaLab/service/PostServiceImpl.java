@@ -1,7 +1,8 @@
 package com.miu.waaLab.service;
 
 import com.miu.waaLab.entity.Post;
-import com.miu.waaLab.entity.dto.response.PostDto;
+import com.miu.waaLab.entity.dto.request.PostRequestDto;
+import com.miu.waaLab.entity.dto.response.PostResponseDto;
 import com.miu.waaLab.repository.PostRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,21 +19,22 @@ public class PostServiceImpl implements PostService{
     @Autowired
     ModelMapper modelmapper;
     @Override
-    public void save(Post p) {
-postrepository.save(p);
+    public void save(PostRequestDto p) {
+
+        postrepository.save(modelmapper.map(p,Post.class));
     }
 
     @Override
-    public PostDto getById(int id) {
-        return modelmapper.map(postrepository.getById(id), PostDto.class);
+    public PostResponseDto findById(int id) {
+        return modelmapper.map(postrepository.findById(id), PostResponseDto.class);
     //    return postrepository.getById(id);
     }
 
     @Override
-    public List<PostDto> findAll() {
+    public List<PostResponseDto> findAll() {
         List<Post> posts = postrepository.findAll();
         return posts.stream()
-                .map(post -> modelmapper.map(post, PostDto.class))
+                .map(post -> modelmapper.map(post, PostResponseDto.class))
                 .collect(Collectors.toList());
     }
 

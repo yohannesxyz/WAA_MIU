@@ -1,16 +1,22 @@
 package com.miu.waaLab.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.*;
 
+@Entity
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class Post {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
+
     String title;
     String content;
     String author;
