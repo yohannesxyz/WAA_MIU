@@ -21,21 +21,26 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
-@Autowired
-private PostRepository postRepository;
     @Autowired
     private ModelMapper modelmapper;
-
+@Autowired
+private PostRepository postRepository;
     @Override
-    public List<UserResponseDto> findAll() {
-        List<UserEntity> listOfUsers = userRepository.findAll();
-        return listOfUsers.stream()
-                .map(u -> modelmapper.map(u, UserResponseDto.class))
-                .collect(Collectors.toList());
+//    public List<UserResponseDto> findAll() {
+//        List<UserEntity> listOfUsers = userRepository.findAll();
+//        return listOfUsers.stream()
+//                .map(u -> modelmapper.map(u, UserResponseDto.class))
+//                .collect(Collectors.toList());
+//    }
+    public List<UserEntity> findAll() {
+        return userRepository.findAll();
+//        return listOfUsers.stream()
+//                .map(u -> modelmapper.map(u, UserResponseDto.class))
+//                .collect(Collectors.toList());
     }
 
     @Override
-    public UserResponseDto findById(int id) {
+    public UserResponseDto findById(long id) {
         return userRepository.findById(id)
                 .map(user -> modelmapper.map(user, UserResponseDto.class))
                 .orElse(null);
@@ -45,10 +50,11 @@ private PostRepository postRepository;
     public void save(UserEntity u) {
         userRepository.save(u);
         postRepository.saveAll(u.getPosts());
+
     }
 
     @Override
-    public List<PostResponseDto> findUserPosts(int userId) {
+    public List<PostResponseDto> findUserPosts(long userId) {
         UserEntity user = userRepository.findById(userId).orElse(null);
         if (user == null) {
             return null;

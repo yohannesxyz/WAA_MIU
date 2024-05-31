@@ -28,20 +28,20 @@ public class UserController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    List<UserResponseDto> findAll(){
+    List<UserEntity> findAll(){
         return userService.findAll();
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    UserResponseDto findById(@PathVariable("id") int id){
+    UserResponseDto findById(@PathVariable("id") long id){
         return userService.findById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void save(@RequestBody UserEntity u){
-        System.out.println(u);
+
         userService.save(u);
     }
 

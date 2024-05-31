@@ -3,12 +3,7 @@ package com.miu.waaLab.entity;
 import java.util.List;
 
 import jakarta.annotation.Generated;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,12 +19,8 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
     String name;
-    @OneToMany
-    @JoinColumn(name="id_user")
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name="id_user", nullable = false)
     List<Post> posts;
 
-    
-    public void setPosts(List<Post> posts){
-    this.posts=posts;
-    }
 }

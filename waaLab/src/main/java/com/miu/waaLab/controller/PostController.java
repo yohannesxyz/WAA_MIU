@@ -25,13 +25,13 @@ public class PostController {
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public void save(@RequestBody PostRequestDto p) {
+    public void save(@RequestBody Post p) {
         postService.save(p);
 
     }
     @GetMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
-    public PostResponseDto getById(@PathVariable("id") int id) {
+    public PostResponseDto getById(@PathVariable("id") long id) {
         return postService.findById(id);
     }
     @ResponseStatus(HttpStatus.OK)

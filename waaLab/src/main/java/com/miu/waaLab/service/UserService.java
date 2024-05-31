@@ -7,8 +7,8 @@ import com.miu.waaLab.entity.dto.response.UserResponseDto;
 import java.util.List;
 public interface UserService {
 
-    public List<UserResponseDto> findAll();
-    public UserResponseDto findById(int id);
+    public List<UserEntity> findAll();
+    public UserResponseDto findById(long id);
     public void save(UserEntity u);
-    public List<PostResponseDto> findUserPosts(int userId);
+    public List<PostResponseDto> findUserPosts(long userId);
 }

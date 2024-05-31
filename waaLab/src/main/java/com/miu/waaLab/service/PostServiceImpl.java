@@ -19,13 +19,13 @@ public class PostServiceImpl implements PostService{
     @Autowired
     ModelMapper modelmapper;
     @Override
-    public void save(PostRequestDto p) {
+    public void save(Post p) {
 
-        postrepository.save(modelmapper.map(p,Post.class));
+        postrepository.save(p);
     }
 
     @Override
-    public PostResponseDto findById(int id) {
+    public PostResponseDto findById(long id) {
         return modelmapper.map(postrepository.findById(id), PostResponseDto.class);
     //    return postrepository.getById(id);
     }
