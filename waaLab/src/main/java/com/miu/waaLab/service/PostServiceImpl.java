@@ -38,5 +38,10 @@ public class PostServiceImpl implements PostService{
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<Post> findByTitle(String title) {
+        return postrepository.findByTitle(title);
+    }
+
 
 }

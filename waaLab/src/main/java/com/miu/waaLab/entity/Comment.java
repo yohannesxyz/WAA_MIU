@@ -1,20 +1,19 @@
 package com.miu.waaLab.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 public class Comment {
-@Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
-    String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    private String name;
 
+    @ManyToOne()
+    @JoinColumn(name = "post_id")
+    private Post post;
 }
