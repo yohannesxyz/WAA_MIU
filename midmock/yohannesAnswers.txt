@@ -1,0 +1,214 @@
+
+part 1, multiple choice
+
+1. c
+2. b
+3. a
+4. a
+
+part 2, short answer
+
+1.
+ auto wiring is the process of letting spring handle the dependencies from one layer to another layer
+ it is the thing that enables us to have IoC .
+ there are 3 types of it namely:- 
+   Property-based dependency injection
+   Setter-based dependency injection
+   Constructor-based dependency injection
+
+2.
+client-server: this enables us to have a separation of concerns where the client doesnt have to worry about the structure
+               of the server and vice versa leading to increased performance and scalability.
+
+cacheable:  the clients can cache responses reducing the number of requests clients have to make and increasing performance.
+
+
+
+part 3, 
+
+1,
+Student Entity
+
+@Getter
+@Setter
+@Entity
+public class Student {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long studentId;
+    private String name;
+    private double gpa;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "address_id")
+    private Address address;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<Course> courses;
+
+  
+}
+
+Address Entity
+
+@Getter
+@Setter
+@Entity
+public class Address {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long addressId;
+    private String city;
+    private String state;
+    private String zipcode;
+
+    @OneToMany(mappedBy = "address", fetch = FetchType.LAZY)
+    private List<Student> students;
+
+  
+}
+
+
+Course Entity
+
+@Getter
+@Setter
+@Entity
+public class Course {
+    @Id
+    private Long courseId;
+    private String name;
+
+    @ManyToMany(mappedBy = "courses", fetch = FetchType.LAZY)
+    private List<Student> students;
+
+    @OneToOne(mappedBy = "course", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private CourseDetails courseDetails;
+
+   
+}
+
+
+CourseDetails Entity
+
+
+
+@Getter
+@Setter
+@Entity
+public class CourseDetails {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long descriptionId;
+    private String courseDescription;
+    private int credit;
+    private String program;
+    private int lastUpdated;
+
+    @OneToOne
+    @JoinColumn(name = "course_id")
+    private Course course;
+
+
+}
+
+2,creating endpoints,
+
+
+the repository:-
+
+public interface StudentRepository extends JpaRepository<Student, Long> {
+    List<Student> findByGpaLessThanEqual(double gpa);
+
+    @Query("SELECT s FROM Student s JOIN s.courses c JOIN c.courseDetails cd WHERE cd.program = 'MSC' AND s.gpa < :gpa")
+    List<Student> findStudentsInMscProgramWithGpaLessThan(@Param("gpa") double gpa);
+
+    @Query("SELECT c FROM Student s JOIN s.courses c WHERE s.studentId = :studentId")
+    List<Course> findCoursesByStudentId(@Param("studentId") Long studentId);
+}
+
+
+the controller:-
+
+
+@RestController
+@RequestMapping("/students")
+public class StudentController {
+    @Autowired
+    private StudentService studentService;
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public List<Student> findAll() {
+        return studentService.findAll();
+    }
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Student findById(@PathVariable Long id) {
+        Optional<Student> student = studentService.findById(id);
+        return student.orElse(null);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteById(@PathVariable Long id) {
+        studentService.deleteById(id);
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Student save(@RequestBody Student student) {
+        return studentService.save(student);
+    }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Student update(@PathVariable Long id, @RequestBody Student student) {
+        if (!studentService.findById(id).isPresent()) {
+            return null;
+        }
+        student.setStudentId(id);
+        return studentService.update(student);
+    }
+
+    @GetMapping("/{id}/courses")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Course> findCoursesByStudentId(@PathVariable Long id) {
+        return studentService.findCoursesByStudentId(id);
+    }
+
+    @GetMapping("/gpa/{gpa}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Student> findByGpaLessThanEqual(@PathVariable double gpa) {
+        return studentService.findByGpaLessThanEqual(gpa);
+    }
+
+    @GetMapping("/msc-gpa/{gpa}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Student> findStudentsInMscProgramWithGpaLessThan(@PathVariable double gpa) {
+        return studentService.findStudentsInMscProgramWithGpaLessThan(gpa);
+    }
+}
+
+
+3. creating an aspect class
+
+
+@Aspect
+@Component
+public class StudentNotificationAspect {
+
+    @Pointcut("execution(* com.waa.midmock.StudentController.*(..))")
+    public void studentControllerMethods() {}
+
+    @AfterReturning(
+        pointcut = "studentControllerMethods()",
+        returning = "result"
+    )
+   public void sendAlert(JoinPoint joinPoint, Object result) {
+        if (result instanceof List<?> list && !list.isEmpty() && list.get(0) instanceof Student) {
+            // Implementation to send alert
+        }
+    }
+}

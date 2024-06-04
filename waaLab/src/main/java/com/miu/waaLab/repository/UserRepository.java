@@ -6,6 +6,7 @@ import com.miu.waaLab.entity.UserEntity;
 
 public interface UserRepository extends JpaRepository<UserEntity,Long>{
 
+    UserEntity findAllByIdContaining(Long id);
 
     
 }

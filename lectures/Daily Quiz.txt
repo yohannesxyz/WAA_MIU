@@ -30,3 +30,37 @@ we need to say @onetomany in the parent entity above the attribute that links bo
 ● No need to deal with the database implementation.
 ● Entities based on business concepts rather than database
 structure.
+
+
+#### Day 3 ####
+
+1. Give a brief explanation about the ORM life cycle
+    i. Transient State:
+Definition: The entity instance is newly created but not yet associated with any database session or persistence context.
+Characteristics: The instance is not stored in the database, and no changes to it will be tracked or persisted.
+  
+ii.Persistent State:
+
+Definition: The entity instance is associated with a persistence context (e.g., an EntityManager or Session) and is tracked by the ORM framework.
+Characteristics: Any changes to the instance are automatically synchronized with the database during a transaction commit or a flush operation.
+
+iii.Detached State:
+
+Definition: The entity instance was previously in the persistent state but is no longer associated with a persistence context.
+Characteristics: Changes to the instance will not be tracked or automatically synchronized with the database. It can be reattached later if needed. 
+
+iv.Removed State:
+
+Definition: The entity instance is marked for removal from the database.
+Characteristics: The instance will be deleted from the database upon transaction commit or flush. It is still managed by the persistence context until the removal is finalized.
+
+2. What could we benefit of making the fetch type = Lazy?
+    Improved Performance:
+    Optimized Database Queries
+    Enhanced Application Scalability
+    Better User Experience
+
+3. What is the difference between the fetch type(Eager/Lazy) and fetch mode(Select,Subselect,Join,)?
+
+Fetch type defines when the related entities are loaded from the database,
+Fetch mode specifies how the data is retrieved from the database when the fetch type is triggered. 
