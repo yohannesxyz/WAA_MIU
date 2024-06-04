@@ -39,5 +39,12 @@ public class PostController {
     public List<PostResponseDto> findAll() {
         return postService.findAll();
     }
+
+    @GetMapping("/post/{title}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<PostResponseDto> findByTitle(@PathVariable("title") String title) {
+        return postService.findByTitle(title);
+    }
+
 }
 

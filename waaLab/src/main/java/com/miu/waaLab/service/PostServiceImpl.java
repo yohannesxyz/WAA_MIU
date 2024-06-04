@@ -39,8 +39,11 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public List<Post> findByTitle(String title) {
-        return postrepository.findByTitle(title);
+    public List<PostResponseDto> findByTitle(String title) {
+        List<Post> posts = postrepository.findByTitle(title);
+        return posts.stream()
+                .map(post -> modelmapper.map(post, PostResponseDto.class))
+                .collect(Collectors.toList());
     }
 
 

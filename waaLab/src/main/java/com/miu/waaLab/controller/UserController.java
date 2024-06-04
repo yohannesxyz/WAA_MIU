@@ -28,29 +28,33 @@ public class UserController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    List<UserEntity> findAll(){
+    List<UserEntity> findAll() {
         return userService.findAll();
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    UserResponseDto findById(@PathVariable("id") long id){
+    UserResponseDto findById(@PathVariable("id") long id) {
         return userService.findById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void save(@RequestBody UserEntity u){
+    public void save(@RequestBody UserEntity u) {
 
         userService.save(u);
     }
 
     @GetMapping("/{id}/posts")
     @ResponseStatus(HttpStatus.OK)
-    public List<PostResponseDto> findUserPosts(@PathVariable("id") int userId){
+    public List<PostResponseDto> findUserPosts(@PathVariable("id") int userId) {
         return userService.findUserPosts(userId);
     }
 
+    @GetMapping("/users/posts/{postCount}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<UserEntity> findByPostsMoreThan(@PathVariable("postCount") int postCount) {
+        return userService.findByPostsMoreThan(postCount);
 
-
+    }
 }
