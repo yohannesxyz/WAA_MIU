@@ -64,9 +64,4 @@ private PostRepository postRepository;
                 .map(p -> modelmapper.map(p, PostResponseDto.class))
                 .collect(Collectors.toList());
     }
-
-    @Override
-    public List<UserEntity> findByPostsMoreThan(int postCount) {
-        return userRepository.findByPostsMoreThan(postCount);
-    }
 }

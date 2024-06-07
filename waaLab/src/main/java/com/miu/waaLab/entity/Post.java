@@ -1,11 +1,12 @@
 package com.miu.waaLab.entity;
 
-import jakarta.persistence.*;
 import org.hibernate.annotations.Immutable;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.*;
-
-import java.util.List;
 
 @Entity
 @Setter
@@ -21,9 +22,5 @@ public class Post {
     String title;
     String content;
     String author;
-
-    @OneToMany(mappedBy = "post", cascade=CascadeType.ALL)
-
-    private List<Comment> comments;
 
 }

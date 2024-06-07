@@ -14,6 +14,4 @@ public void save(Post p);
 public PostResponseDto findById(long id);
 public List<PostResponseDto> findAll();
 
-    List<PostResponseDto> findByTitle(String title);
-
 }
