@@ -3,6 +3,7 @@ package com.miu.waaLab.aspect;
 
 
 
+import com.miu.waaLab.entity.Logger;
 import com.miu.waaLab.repository.LoggerRepo;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -10,11 +11,8 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.sql.Time;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
 
 @Aspect
 @Component
@@ -23,9 +21,9 @@ public class ExecutionTimeAspect {
     private LoggerRepo loggerRepo;
 
     @Around("@annotation(ExecutionTime)")
-    public Object logExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
+    public void logExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
         long start = System.currentTimeMillis();
-        Object proceed = joinPoint.proceed();
+        joinPoint.proceed();
         long executionTime = System.currentTimeMillis() - start;
 
         LocalDate datePart = LocalDate.now();
@@ -40,8 +38,6 @@ public class ExecutionTimeAspect {
         logger.setOperation(operation);
 
         loggerRepo.save(logger);
-
-        return proceed;
 
     }
 }

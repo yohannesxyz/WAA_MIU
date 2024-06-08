@@ -1,4 +1,4 @@
-package com.miu.waaLab.aspect;
+package com.miu.waaLab.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,21 +11,21 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
+
 @Getter
 @Setter
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Logger {
+public class ExceptionLogger {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long transactionId;
+
     private LocalDate date;
     private LocalTime time;
-    private String principle ;
+    private String principle;
     private String operation;
-
-
-
+    private String exceptionType;
 }

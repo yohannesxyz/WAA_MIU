@@ -1,6 +1,6 @@
 package com.miu.waaLab.repository;
 
-import com.miu.waaLab.aspect.Logger;
+import com.miu.waaLab.entity.Logger;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
