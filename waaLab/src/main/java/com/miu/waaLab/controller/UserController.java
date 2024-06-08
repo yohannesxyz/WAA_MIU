@@ -2,6 +2,7 @@ package com.miu.waaLab.controller;
 
 import java.util.List;
 
+import com.miu.waaLab.aspect.ExecutionTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,7 @@ public class UserController {
     List<UserEntity> findAll(){
         return userService.findAll();
     }
-
+    @ExecutionTime
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
     UserResponseDto findById(@PathVariable("id") long id){
