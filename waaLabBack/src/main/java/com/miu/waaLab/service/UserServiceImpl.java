@@ -8,13 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.miu.waaLab.entity.Post;
-import com.miu.waaLab.entity.UserEntity;
-import com.miu.waaLab.entity.dto.request.UserRequestDto;
+import com.miu.waaLab.entity.User;
 import com.miu.waaLab.entity.dto.response.PostResponseDto;
 import com.miu.waaLab.entity.dto.response.UserResponseDto;
 import com.miu.waaLab.repository.PostRepository;
 import com.miu.waaLab.repository.UserRepository;
-import com.miu.waaLab.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -27,12 +25,12 @@ public class UserServiceImpl implements UserService {
 private PostRepository postRepository;
     @Override
 //    public List<UserResponseDto> findAll() {
-//        List<UserEntity> listOfUsers = userRepository.findAll();
+//        List<User> listOfUsers = userRepository.findAll();
 //        return listOfUsers.stream()
 //                .map(u -> modelmapper.map(u, UserResponseDto.class))
 //                .collect(Collectors.toList());
 //    }
-    public List<UserEntity> findAll() {
+    public List<User> findAll() {
         return userRepository.findAll();
 //        return listOfUsers.stream()
 //                .map(u -> modelmapper.map(u, UserResponseDto.class))
@@ -47,7 +45,7 @@ private PostRepository postRepository;
     }
 
     @Override
-    public void save(UserEntity u) {
+    public void save(User u) {
         userRepository.save(u);
         postRepository.saveAll(u.getPosts());
 
@@ -55,7 +53,7 @@ private PostRepository postRepository;
 
     @Override
     public List<PostResponseDto> findUserPosts(long userId) {
-        UserEntity user = userRepository.findById(userId).orElse(null);
+        User user = userRepository.findById(userId).orElse(null);
         if (user == null) {
             return null;
         }
@@ -71,7 +69,7 @@ private PostRepository postRepository;
     }
 
     @Override
-    public List<UserEntity> getUserEntitiesByPostsCount(int num) {
+    public List<User> getUserEntitiesByPostsCount(int num) {
         return userRepository.getUserEntitiesByPostsCount(num);
     }
 

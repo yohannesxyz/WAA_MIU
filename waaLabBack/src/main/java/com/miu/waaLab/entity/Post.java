@@ -23,7 +23,7 @@ public class Post {
    private String author;
 
 //   @ManyToOne
-//   private UserEntity user;
+//   private User user;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
    private List<Comment> commentList;

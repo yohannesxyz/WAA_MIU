@@ -3,19 +3,18 @@ package com.miu.waaLab.controller;
 import java.util.List;
 
 import com.miu.waaLab.aspect.ExecutionTime;
+import com.miu.waaLab.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import com.miu.waaLab.entity.UserEntity;
-import com.miu.waaLab.entity.dto.request.UserRequestDto;
 import com.miu.waaLab.entity.dto.response.PostResponseDto;
 import com.miu.waaLab.entity.dto.response.UserResponseDto;
 import com.miu.waaLab.service.UserService;
 
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 public class UserController {
 
     @Autowired
@@ -23,7 +22,7 @@ public class UserController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    List<UserEntity> findAll(){
+    List<User> findAll(){
         return userService.findAll();
     }
     @ExecutionTime
@@ -42,7 +41,7 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void save(@RequestBody UserEntity u){
+    public void save(@RequestBody User u){
 
         userService.save(u);
     }
@@ -55,7 +54,7 @@ public class UserController {
 
     @GetMapping("/users-with-posts/{count}")
     @ResponseStatus(HttpStatus.OK)
-    public List<UserEntity> getUserEntitiesByPostsCount(int count){
+    public List<User> getUserEntitiesByPostsCount(int count){
         return userService.getUserEntitiesByPostsCount(count);
     }
 }
