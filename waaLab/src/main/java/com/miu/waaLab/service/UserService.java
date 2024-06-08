@@ -11,4 +11,6 @@ public interface UserService {
     public UserResponseDto findById(long id);
     public void save(UserEntity u);
     public List<PostResponseDto> findUserPosts(long userId);
+    public void deleteById(long userId);
+    public List<UserEntity> getUserEntitiesByPostsCount(int num);
 }

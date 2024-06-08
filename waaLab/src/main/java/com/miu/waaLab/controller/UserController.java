@@ -4,13 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.miu.waaLab.entity.UserEntity;
 import com.miu.waaLab.entity.dto.request.UserRequestDto;
@@ -38,6 +32,13 @@ public class UserController {
         return userService.findById(id);
     }
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    void deleteById(@PathVariable long id){
+        userService.deleteById(id);
+    }
+
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void save(@RequestBody UserEntity u){
@@ -51,6 +52,9 @@ public class UserController {
         return userService.findUserPosts(userId);
     }
 
-
-
+    @GetMapping("/users-with-posts/{count}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<UserEntity> getUserEntitiesByPostsCount(int count){
+        return userService.getUserEntitiesByPostsCount(count);
+    }
 }

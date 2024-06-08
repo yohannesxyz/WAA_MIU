@@ -1,12 +1,11 @@
 package com.miu.waaLab.entity;
 
+import jakarta.persistence.*;
 import org.hibernate.annotations.Immutable;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Setter
@@ -17,10 +16,19 @@ import lombok.*;
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
+    private long id;
 
-    String title;
-    String content;
-    String author;
+    private String title;
+    private String content;
+   private String author;
 
+//   @ManyToOne
+//   private UserEntity user;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+   private List<Comment> commentList;
+    public void addComment(Comment c){
+        commentList.add(c);
+        c.setPost(this);
+    }
 }

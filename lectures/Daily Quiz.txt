@@ -64,3 +64,13 @@ Characteristics: The instance will be deleted from the database upon transaction
 
 Fetch type defines when the related entities are loaded from the database,
 Fetch mode specifies how the data is retrieved from the database when the fetch type is triggered. 
+
+
+####Quiz 4#####
+
+i. Since it is possible to access some data in a Jwt. How is it considered safe?
+
+because the tokens have a short lifespan and the tokens are  signed with a public key and private key ensuring verification of untampering
+ii. List three advantages of using tokens with a stateless back-end.
+
+Flexibility, Performance, Scalability

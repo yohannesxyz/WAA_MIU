@@ -64,4 +64,15 @@ private PostRepository postRepository;
                 .map(p -> modelmapper.map(p, PostResponseDto.class))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public void deleteById(long userId) {
+        userRepository.deleteById(userId);
+    }
+
+    @Override
+    public List<UserEntity> getUserEntitiesByPostsCount(int num) {
+        return userRepository.getUserEntitiesByPostsCount(num);
+    }
+
 }

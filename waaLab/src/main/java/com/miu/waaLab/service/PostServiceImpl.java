@@ -17,6 +17,10 @@ public class PostServiceImpl implements PostService{
     PostRepository postrepository;
 
     @Autowired
+    ComentService comentService;
+
+
+    @Autowired
     ModelMapper modelmapper;
     @Override
     public void save(Post p) {
@@ -38,5 +42,14 @@ public class PostServiceImpl implements PostService{
                 .collect(Collectors.toList());
     }
 
+    @Override
+public void addComment(long postId, String name){
+        comentService.addComment(postId,name);
+}
+
+    @Override
+    public List<Post> findAllByTitle(String title) {
+        return postrepository.findAllByTitle(title);
+    }
 
 }
