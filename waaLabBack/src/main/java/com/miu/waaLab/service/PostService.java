@@ -15,5 +15,6 @@ public PostResponseDto findById(long id);
 public List<PostResponseDto> findAll();
 public void addComment(long postId, String name);
 public List<Post> findAllByTitle(String title);
+public void deleteById(long id);
 
 }

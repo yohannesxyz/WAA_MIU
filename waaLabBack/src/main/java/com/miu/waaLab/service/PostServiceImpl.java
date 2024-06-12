@@ -29,6 +29,10 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
+    public void deleteById(long id) {
+        postrepository.deleteById(id);
+    }
+    @Override
     public PostResponseDto findById(long id) {
         return modelmapper.map(postrepository.findById(id), PostResponseDto.class);
     //    return postrepository.getById(id);

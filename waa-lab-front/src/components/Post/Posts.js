@@ -3,7 +3,7 @@ import Post from './Post';
 
 const Posts = ({ posts, onSelectPost }) => {
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+    <div >
       {posts.map(post => (
         <Post key={post.id} post={post} onSelectPost={onSelectPost} />
       ))}

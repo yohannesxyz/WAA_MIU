@@ -40,24 +40,35 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//        http
+//                .csrf().disable().cors().and()
+//                .authorizeHttpRequests()
+////                .requestMatchers("/api/authenticate/**").permitAll()
+////                .requestMatchers("/api/**").permitAll()
+////                .requestMatchers("/api/posts").hasAnyAuthority("USER", "ADMIN") // Dynamic authorities
+////                .requestMatchers("/api/users").hasAnyAuthority("USER", "ADMIN")
+////                .requestMatchers("/api/admin").hasAuthority("ADMIN")
+//                .anyRequest()
+//                .authenticated()
+//                .and()
+//                .sessionManagement()
+//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//
+//        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+//
+//        return http.build();
+
+
         http
-                .csrf().disable().cors().and()
-                .authorizeHttpRequests()
-                .requestMatchers("/api/authenticate/**").permitAll()
-                .requestMatchers("/api/authenticate/**").permitAll()
-                .requestMatchers("/api/posts").hasAnyAuthority("USER", "ADMIN") // Dynamic authorities
-                .requestMatchers("/api/users").hasAnyAuthority("USER", "ADMIN")
-                .requestMatchers("/api/admin").hasAuthority("ADMIN")
-                .anyRequest()
-                .authenticated()
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
-        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-
+                .csrf().disable() // Disable CSRF for simplicity, not recommended for production
+                .authorizeRequests()
+                .requestMatchers("/api/**").permitAll() // Permit all requests to /api/**
+                .anyRequest().authenticated(); // Authenticate all other requests
+        http.csrf().disable();
         return http.build();
-    }
+}
+
+
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
