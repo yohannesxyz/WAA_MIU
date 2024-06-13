@@ -63,7 +63,7 @@ public class SecurityConfig {
                 .csrf().disable() // Disable CSRF for simplicity, not recommended for production
                 .authorizeRequests()
                 .requestMatchers("/api/**").permitAll() // Permit all requests to /api/**
-                .anyRequest().authenticated(); // Authenticate all other requests
+                .anyRequest().permitAll();; // Authenticate all other requests
         http.csrf().disable();
         return http.build();
 }

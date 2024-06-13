@@ -1,32 +1,143 @@
-/* Global styles */
+/* styles.css */
+
+/* Global Styles */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-  }
-  
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+/* AddPost Component */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+input, textarea {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+textarea {
+  resize: vertical;
+}
+
+button {
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Post Component */
+.post {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fafafa;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 200px;
+  height: 200px;
+}
+
+.post:hover {
+  background-color: #f0f0f0;
+}
+
+.post p {
+  margin: 0;
+}
+
+.post h2 {
+  margin: 10px 0;
+}
+
+/* PostDetails Component */
+.post-details {
+  padding: 20px;
+  background-color: #fafafa;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.post-details h2 {
+  margin-bottom: 10px;
+}
+
+.post-details p {
+  margin: 5px 0;
+}
+
+/* EditPost Component */
+.edit-post {
+  padding: 20px;
+  background-color: #fafafa;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.edit-post h2 {
+  margin-bottom: 20px;
+}
+
+.edit-post input, .edit-post textarea {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+/* Posts Component */
+.posts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
   .container {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 0 20px;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
+    padding: 10px;
   }
   
-  .button {
-    padding: 8px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    border-radius: 3px;
-    text-transform: uppercase;
-    font-weight: bold;
+  button {
+    font-size: 14px;
   }
   
-  .button:hover {
-    background-color: #0056b3;
+  input, textarea {
+    font-size: 14px;
   }
-  
+
+  .post {
+    width: 100%;
+    height: auto;
+  }
+}

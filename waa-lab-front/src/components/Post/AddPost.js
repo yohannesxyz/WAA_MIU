@@ -8,40 +8,43 @@ const AddPost = ({ onPostAdded }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    const newPost = {
-      title,
-      author,
-      content,
-    };
+
+    const newPost = { title, author, content };
 
     axios.post('http://localhost:8080/api/posts', newPost)
-      .then(response => {
-        console.log('Post added:', response.data);
+      .then((response) => {
         onPostAdded(response.data); // Notify the parent component to update the state
         setTitle('');
         setAuthor('');
         setContent('');
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Error adding post:', error);
       });
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-        <label>Title:</label>
-        <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
-      </div>
-      <div>
-        <label>Author:</label>
-        <input type="text" value={author} onChange={(e) => setAuthor(e.target.value)} required />
-      </div>
-      <div>
-        <label>Content:</label>
-        <textarea value={content} onChange={(e) => setContent(e.target.value)} required></textarea>
-      </div>
+      <input
+        type="text"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        placeholder="Title"
+        required
+      />
+      <input
+        type="text"
+        value={author}
+        onChange={(e) => setAuthor(e.target.value)}
+        placeholder="Author"
+        required
+      />
+      <textarea
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+        placeholder="Content"
+        required
+      />
       <button type="submit">Add Post</button>
     </form>
   );

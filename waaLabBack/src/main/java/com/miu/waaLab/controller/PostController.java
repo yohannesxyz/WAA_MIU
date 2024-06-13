@@ -25,11 +25,13 @@ public class PostController {
         postService.save(p);
 
     }
+
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public PostResponseDto getById(@PathVariable("id") long id) {
         return postService.findById(id);
     }
+
     @ResponseStatus(HttpStatus.OK)
     @GetMapping
     public List<PostResponseDto> findAll() {
@@ -41,11 +43,17 @@ public class PostController {
     public void deleteById(@PathVariable long id) {
         postService.deleteById(id);
     }
+@PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void updatePost(@PathVariable long id, @RequestBody Post post) {
+        postService.updatePost(id, post);
+    }
     @PostMapping("/{id}/comments")
     @ResponseStatus(HttpStatus.OK)
-    public void addComment(@PathVariable long id, @RequestBody String commentName){
-        postService.addComment(id,commentName);
+    public void addComment(@PathVariable long id, @RequestBody String commentName) {
+        postService.addComment(id, commentName);
     }
+
     @GetMapping("{title}/posts")
     @ResponseStatus(HttpStatus.OK)
     public List<Post> findAllByTitle(@PathVariable("title") String title) {

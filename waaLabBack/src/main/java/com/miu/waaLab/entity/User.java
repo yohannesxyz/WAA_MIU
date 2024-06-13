@@ -29,7 +29,7 @@ public class User {
     private List<Role> roles;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name="id_user", nullable = false)
+    @JoinColumn(name="id_user")
     List<Post> posts;
 
 }

@@ -23,6 +23,7 @@ public class Post {
    private String author;
 
 //   @ManyToOne
+////   @JoinColumn(name = "id_user", nullable = false)
 //   private User user;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)

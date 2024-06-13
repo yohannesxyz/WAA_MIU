@@ -3,7 +3,7 @@ import React from 'react';
 const Post = ({ post, onSelectPost }) => {
   return (
     <div 
-      
+      className="post"
       onClick={() => onSelectPost(post)}  
     >
       <p>{post.id}</p>
