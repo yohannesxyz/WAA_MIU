@@ -1,22 +1,28 @@
-import React, { useState } from 'react';
+// AddPost.js
+import React, { useRef } from 'react';
 import axios from 'axios';
 
+
 const AddPost = ({ onPostAdded }) => {
-  const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
-  const [content, setContent] = useState('');
+  const titleRef = useRef();
+  const authorRef = useRef();
+  const contentRef = useRef();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const newPost = { title, author, content };
+    const newPost = {
+      title: titleRef.current.value,
+      author: authorRef.current.value,
+      content: contentRef.current.value
+    };
 
     axios.post('http://localhost:8080/api/posts', newPost)
       .then((response) => {
-        onPostAdded(response.data); // Notify the parent component to update the state
-        setTitle('');
-        setAuthor('');
-        setContent('');
+        onPostAdded(response.data);
+        titleRef.current.value = '';
+        authorRef.current.value = '';
+        contentRef.current.value = '';
       })
       .catch((error) => {
         console.error('Error adding post:', error);
@@ -24,24 +30,21 @@ const AddPost = ({ onPostAdded }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="add-post-form" onSubmit={handleSubmit}>
       <input
         type="text"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        ref={titleRef}
         placeholder="Title"
         required
       />
       <input
         type="text"
-        value={author}
-        onChange={(e) => setAuthor(e.target.value)}
+        ref={authorRef}
         placeholder="Author"
         required
       />
       <textarea
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
+        ref={contentRef}
         placeholder="Content"
         required
       />

@@ -1,12 +1,13 @@
-import React from 'react';
-import Dashboard from './containers/Dashboard/Dashboard';
 
+import React from 'react';
+import { SelectedPostProvider } from './context/SelectedPostContext';
+import Dashboard from './containers/Dashboard/Dashboard';
 
 const App = () => {
   return (
-    <div className="App">
-      <Dashboard/>
-    </div>
+    <SelectedPostProvider>
+      <Dashboard />
+    </SelectedPostProvider>
   );
 };
 

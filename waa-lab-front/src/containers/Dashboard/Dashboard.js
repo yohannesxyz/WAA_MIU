@@ -1,20 +1,25 @@
-import React, { useEffect, useState } from 'react';
+// Dashboard.js
+import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import Posts from '../../components/Post/Posts';
 import PostDetails from '../../components/Post/PostDetails';
 import AddPost from '../../components/Post/AddPost';
 import EditPost from '../../components/Post/EditPost';
+import { SelectedPostContext } from '../../context/SelectedPostContext';
+
 
 const Dashboard = () => {
   const [posts, setPosts] = useState([]);
   const [title, setTitle] = useState('');
-  const [selectedPost, setSelectedPost] = useState(null);
   const [editingPost, setEditingPost] = useState(null);
-  const [reloadPosts, setReloadPosts] = useState(false); // State variable to trigger reload
+  const [reloadPosts, setReloadPosts] = useState(false);
+
+  const { selectedPostId, setSelectedPostId } = useContext(SelectedPostContext);
+  const selectedPost = posts.find(post => post.id === selectedPostId);
 
   useEffect(() => {
     loadPosts();
-  }, [reloadPosts]); // Reload posts whenever reloadPosts changes
+  }, [reloadPosts]);
 
   const loadPosts = () => {
     axios.get('http://localhost:8080/api/posts')
@@ -38,17 +43,17 @@ const Dashboard = () => {
   };
 
   const handleSelectPost = (post) => {
-    setSelectedPost(post);
+    setSelectedPostId(post.id);
   };
 
   const handleDeletePost = (postId) => {
     setPosts(posts.filter(post => post.id !== postId));
-    setSelectedPost(null);
+    setSelectedPostId(null);
   };
 
   const handlePostAdded = (newPost) => {
     setPosts([...posts, newPost]);
-    setReloadPosts(prev => !prev); // Trigger reload of posts
+    setReloadPosts(prev => !prev);
   };
 
   const handleEditPost = (post) => {
@@ -56,9 +61,9 @@ const Dashboard = () => {
   };
 
   const handleUpdatePost = (updatedPost) => {
-    setReloadPosts(prev => !prev); // Toggle reloadPosts to trigger useEffect
+    setReloadPosts(prev => !prev);
     setEditingPost(null);
-    setSelectedPost(updatedPost); // Ensure the updated post is selected
+    setSelectedPostId(updatedPost.id);
   };
 
   const handleCancelEdit = () => {
